@@ -1,0 +1,55 @@
+import UIKit
+
+//Merge Sort
+
+
+var myArr = [7,3,9,12,1,5]
+let mySortedArr = mergeSort(myArr)
+print(mySortedArr)
+
+func mergeSort(_ array: [Int]) -> [Int] {
+    let median = array.count / 2
+
+    guard array.count > 1 else {return array}
+    
+    let firstHalf = mergeSort(Array(array[0..<median]))
+    let secHalf = mergeSort(Array(array[median..<array.count]))
+
+    return merge(firstHalf, secHalf)
+
+    }
+    
+
+    func merge(_ first: [Int], _ second: [Int]) -> [Int] {
+        var firstIndex = 0
+        var secIndex = 0
+
+        var mergedArray = [Int]()
+        while firstIndex < first.count && secIndex < second.count {
+            if first[firstIndex] < second[secIndex] {
+                mergedArray.append(first[firstIndex])
+                firstIndex += 1
+            } else if first[firstIndex] > second[secIndex] {
+                mergedArray.append(second[secIndex])
+                secIndex += 1
+            } else {
+                mergedArray.append(first[firstIndex])
+                mergedArray.append(second[secIndex])
+                firstIndex += 1
+                secIndex += 1
+            }
+        }
+        
+        while firstIndex < first.count {
+            mergedArray.append(first[firstIndex])
+            firstIndex += 1
+          }
+        
+        while secIndex < second.count {
+            mergedArray.append(second[secIndex])
+            secIndex += 1
+        }
+        return mergedArray
+        
+    }
+
